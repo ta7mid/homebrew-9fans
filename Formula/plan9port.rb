@@ -1,7 +1,6 @@
 class Plan9port < Formula
   desc "Port of many Plan 9 libraries and programs to Unix"
   homepage "https://9fans.github.io/plan9port/"
-  license "MIT"
   head "https://github.com/9fans/plan9port.git", branch: "master"
 
   on_linux do
