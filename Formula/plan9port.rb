@@ -13,12 +13,8 @@ class Plan9port < Formula
   def install
     prefix.install_metafiles
 
-    # Build with libexec as $PLAN9.
+    # Build and install to libexec.
     system "./INSTALL", "-r", libexec
-
-    # Install only runtime and user-relevant files into libexec.
-    rm_r "lib/git"
-    rm Dir["**/.gitkeep"]
     libexec.install Dir["*"] - %w[
       .github
       .gitignore
@@ -37,6 +33,11 @@ class Plan9port < Formula
       src
       unix
     ]
+
+    # Clean up
+    rm Dir[libexec/"**/.gitkeep"]
+    rm libexec/"lib/git/commit-msg.hook"
+    rmdir libexec/"lib/git"
 
     # Surface the `9`/`u` scripts and their man page "9(1)".
     bin.install_symlink %w[9 9.rc u u.rc].map { |f| libexec/"bin"/f }
